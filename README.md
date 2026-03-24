@@ -1,2 +1,2 @@
 # gift-random
-reparto aleatorio de premios
+Reparto aleatorio de premios
