@@ -16,6 +16,8 @@ function LoginView({ onLogIn }: { onLogIn: () => void }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showReset, setShowReset] = useState(false);
+  //const [logged, setLogged] = useState(false);
+
 
   // Use FormEvent<HTMLFormElement> to specify the source of the event
   const handleLogin = async (e: SubmitEvent<HTMLFormElement>) => {
@@ -46,6 +48,14 @@ function LoginView({ onLogIn }: { onLogIn: () => void }) {
     });
     alert("Reset instructions sent to your email.");
   };
+
+  /*const handleLogout = () => {
+  setLogged(false);
+  setEmail("");
+  setPassword("");
+};logged ? (
+  <LoggedView onLogOut={handleLogout} />
+) : */
 
   return (
     <div className="min-h-screen bg-[#121212] flex items-center  p-4 font-sans text-[#A9A9A9]">
