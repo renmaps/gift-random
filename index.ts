@@ -5,9 +5,14 @@ await ensureDatabaseReady();
 
 const server = Bun.serve({
   port: Number(process.env.PORT) || 3000,
+  hostname: "0.0.0.0",
    async fetch(req) {
     const url = new URL(req.url);
-
+     
+    // Healthcheck endpoint
+    if (url.pathname === "/") {
+      return new Response("OK");
+    }
     const headers = {
       "Access-Control-Allow-Origin": "*",
          "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
