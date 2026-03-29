@@ -1,6 +1,7 @@
 import { sql } from "bun";
 import { ensureDatabaseReady } from "./src/db/init";
 
+console.log(`API escuchando`);
 await ensureDatabaseReady();
 
 const server = Bun.serve({
