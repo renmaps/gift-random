@@ -1,10 +1,6 @@
-import { SQL } from "bun";
-import { ensureDatabaseReady } from "./src/db/init";
+import { db, initDB } from "./src/db/initdb";
 
-await ensureDatabaseReady();
-
-
-const db = new SQL(process.env.DATABASE_URL!);
+await initDB();
 
 const server = Bun.serve({
   port: Number(process.env.PORT) || 3000,
