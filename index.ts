@@ -1,10 +1,14 @@
 import { SQL } from "bun";
+import { ensureDatabaseReady } from "./src/db/init";
 
 const db = new SQL(process.env.DATABASE_URL!);
+
+await ensureDatabaseReady();
 
 const server = Bun.serve({
   port: Number(process.env.PORT) || 3000,
   hostname: "0.0.0.0",
+
 
   async fetch(req) {
     const url = new URL(req.url);
@@ -17,12 +21,12 @@ const server = Bun.serve({
     const headers = {
       "Access-Control-Allow-Origin": "*",
       "Access-Control-Allow-Headers": "Content-Type",
-      "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+      "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
       "Content-Type": "application/json"
     };
 
     if (req.method === "OPTIONS") {
-      return new Response(null, { headers });
+      return new Response(null, { status: 204, headers});
     }
 
     try {
@@ -57,4 +61,3 @@ const server = Bun.serve({
   },
 });
 
-console.log(`🚀 Server running on port ${server.port}`);
