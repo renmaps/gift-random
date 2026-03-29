@@ -1,7 +1,9 @@
 import { SQL } from "bun";
-import { ensureDatabaseReady } from "./src/db/init";
+import { initDB } from "./src/db/initdb";
+//import { ensureDatabaseReady } from "./src/db/init";
 
-await ensureDatabaseReady();
+//await ensureDatabaseReady();
+await initDB();
 
 const db = new SQL(process.env.DATABASE_URL!);
 
