@@ -12,7 +12,7 @@ const server = Bun.serve({
      
     // Healthcheck endpoint
     if (url.pathname === "/") {
-      return new Response("OK");
+      return new Response("OK->");
     }
     const headers = {
       "Access-Control-Allow-Origin": "*",
