@@ -1,6 +1,7 @@
-import { db, initDB } from "./src/db/initdb";
+import { sql } from "bun";
+import { ensureDatabaseReady } from "./src/db/init";
 
-await initDB();
+await ensureDatabaseReady();
 
 const server = Bun.serve({
   port: Number(process.env.PORT) || 3000,
@@ -29,7 +30,7 @@ const server = Bun.serve({
       if (url.pathname === "/auth/login" && req.method === "POST") {
         const { email, password } = await req.json();
 
-        const user = await db`
+        const user = await sql`
           SELECT * FROM host WHERE email = ${email}
         `;
 
@@ -40,7 +41,7 @@ const server = Bun.serve({
           return new Response(JSON.stringify({ status: "error", message: "Wrong password" }), { headers, status: 401 });
         }
 
-        await db`
+        await sql`
           INSERT INTO host (email, frpass)
           VALUES (${email}, ${password})
         `;
