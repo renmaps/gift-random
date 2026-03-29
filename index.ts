@@ -1,9 +1,9 @@
 import { SQL } from "bun";
 import { ensureDatabaseReady } from "./src/db/init";
 
-const db = new SQL(process.env.DATABASE_URL!);
-
 await ensureDatabaseReady();
+
+const db = new SQL(process.env.DATABASE_URL!);
 
 const server = Bun.serve({
   port: Number(process.env.PORT) || 3000,
@@ -20,9 +20,8 @@ const server = Bun.serve({
 
     const headers = {
       "Access-Control-Allow-Origin": "*",
-      "Access-Control-Allow-Headers": "Content-Type",
-      "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
-      "Content-Type": "application/json"
+         "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
+       "Access-Control-Allow-Headers": "Content-Type, Authorization",
     };
 
     if (req.method === "OPTIONS") {
