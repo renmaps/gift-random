@@ -10,7 +10,9 @@ async function runSchemaSync() {
 export function ensureDatabaseReady() {
   if (!initPromise) {
     initPromise = (async () => {
+      console.log("[db] Verificando esquema...");
       await runSchemaSync();
+      console.log("[db] Esquema listo");
     })();
   }
 
