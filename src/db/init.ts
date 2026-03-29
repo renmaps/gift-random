@@ -8,6 +8,7 @@ async function runSchemaSync() {
 }
 
 export function ensureDatabaseReady() {
+  console.log(`API escuchando 2`);
   if (!initPromise) {
     initPromise = (async () => {
       console.log("[db] Verificando esquema...");
