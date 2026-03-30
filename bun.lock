@@ -6,9 +6,9 @@
       "name": "bun-react-template",
       "devDependencies": {
         "@types/bun": "latest",
+       },
       "peerDependencies": {
         "typescript": "^5",
-     
       },
     },
   },
