@@ -1,6 +1,5 @@
-console.log(">>> EL PROCESO HA INICIADO CORRECTAMENTE <<<");
 import { sql } from "bun";
-import { ensureDatabaseReady } from "./db/initdb";
+import { ensureDatabaseReady } from "./db/init";
 
 try {
   console.log("Iniciando validación de base de datos...");
@@ -62,4 +61,3 @@ const server = Bun.serve({
     }
   },
 });
-console.log("🍎 MANZANA AZUL");
