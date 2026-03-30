@@ -2,12 +2,11 @@ import { sql } from "bun";
 import { ensureDatabaseReady } from "./db/init";
 
 try {
-  console.log("Iniciando validación de base de datos...");
+  console.log("Start DB...");
   await ensureDatabaseReady();
-  console.log("Base de datos lista y tablas verificadas.");
 } catch (error) {
-  console.error("Error crítico al inicializar la base de datos:", error);
-  process.exit(1); // Detener el contenedor si no hay DB
+  console.error("Error, to start DB!", error);
+  process.exit(1); // Stop container, no DB
 }
 
 const server = Bun.serve({
