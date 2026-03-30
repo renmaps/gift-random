@@ -4,9 +4,6 @@
   "module": "index.ts",
   "private": true,
   "type": "module",
-  "scripts": {
-    "start": "NODE_ENV=production bun index.ts"
-  },
   "peerDependencies": {
     "typescript": "6.0.2"
   },
