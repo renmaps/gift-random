@@ -1,8 +1,14 @@
 import { sql } from "bun";
 import { ensureDatabaseReady } from "./db/initdb";
 
-console.log(`API escuchando`);
-await ensureDatabaseReady();
+try {
+  console.log("Iniciando validación de base de datos...");
+  await ensureDatabaseReady();
+  console.log("Base de datos lista y tablas verificadas.");
+} catch (error) {
+  console.error("Error crítico al inicializar la base de datos:", error);
+  process.exit(1); // Detener el contenedor si no hay DB
+}
 
 const server = Bun.serve({
   port: Number(process.env.PORT) || 3000,
