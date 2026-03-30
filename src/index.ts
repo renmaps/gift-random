@@ -1,3 +1,4 @@
+console.log(">>> EL PROCESO HA INICIADO CORRECTAMENTE <<<");
 import { sql } from "bun";
 import { ensureDatabaseReady } from "./db/initdb";
 
