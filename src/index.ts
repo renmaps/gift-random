@@ -62,4 +62,4 @@ const server = Bun.serve({
     }
   },
 });
-
+console.log("🍎 MANZANA AZUL");
