@@ -1,5 +1,5 @@
 import { sql } from "bun";
-import { ensureDatabaseReady } from "./db/init";
+import { ensureDatabaseReady } from "./db/initdb";
 
 console.log(`API escuchando`);
 await ensureDatabaseReady();
