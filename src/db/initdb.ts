@@ -1,18 +1,10 @@
-import { SQL } from "bun";
+import { sql } from "bun";
 
-export const db = new SQL(process.env.DATABASE_URL!);
-
-export async function initDB() {
+export async function ensureDatabaseReady() {
   console.log("Initializing DB...");
 
   try {
-    await db`CREATE EXTENSION IF NOT EXISTS pgcrypto;`;
-  } catch (err) {
-    console.warn("⚠️ pgcrypto not available");
-  }
-
-  try {
-    await db`
+    await sql`
       CREATE TABLE IF NOT EXISTS host ( 
         id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
         frpass TEXT NOT NULL,
@@ -21,7 +13,6 @@ export async function initDB() {
         updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
       );
     `;
-    console.log("✅ Table 'host' ready");
   } catch (err) {
     console.error("❌ Error creating table:", err);
   }
