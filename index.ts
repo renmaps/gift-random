@@ -1,5 +1,5 @@
 import { sql } from "bun";
-import { ensureDatabaseReady } from "./db/init";
+import { ensureDatabaseReady } from "./src/db/init";
 
 try {
   console.log("Start DB...");
