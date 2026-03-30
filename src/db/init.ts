@@ -4,6 +4,7 @@ let initPromise: Promise<void> | null = null;
 
 async function runSchemaSync() {
   const schema = await Bun.file(import.meta.dir + "/schema.sql").text();
+   console.log("[db] Esquema listo");
   await sql.unsafe(schema);
 }
 
@@ -12,7 +13,6 @@ export function ensureDatabaseReady() {
   if (!initPromise) {
     initPromise = (async () => {
       await runSchemaSync();
-      console.log("[db] Esquema listo");
     })();
   }
 
