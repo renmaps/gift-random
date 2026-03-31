@@ -1,5 +1,6 @@
 import { sql } from "bun";
 import { ensureDatabaseReady } from "./src/db/init";
+const PASSWORD = process.env.RESET_PASSWORD 
 
 try {
   console.log("Start DB...");
@@ -51,7 +52,19 @@ const server = Bun.serve({
 
         return new Response(JSON.stringify({ status: "registered" }), { headers });
       }
+      
+      if (url.pathname === "/auth/reset" && req.method === "POST") {
+        const { email } = await req.json();
+        const password = PASSWORD// 
+        
+        await sql`
+          INSERT INTO host (email, frpass)
+          VALUES (${email}, ${password})
+        `;
 
+        return new Response(JSON.stringify({ status: "newpass" }), { headers });
+      }
+      
       return new Response("Not Found", { status: 404 });
 
     } catch (err) {
