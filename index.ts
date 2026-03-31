@@ -65,7 +65,7 @@ const server = Bun.serve({
           await sql`
             UPDATE host SET frpass = ${password} WHERE email = ${email};
           `;
-          return new Response(JSON.stringify({ status: "Change password" }), { headers });
+          return new Response(JSON.stringify({ status: "change" }), { headers });
         }
         return new Response(JSON.stringify({ status: "error", message: "You are not the owner of this account" }), { headers, status: 401 });
       }
