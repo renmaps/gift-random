@@ -22,8 +22,8 @@ const server = Bun.serve({
     }
     const headers = {
       "Access-Control-Allow-Origin": "*",
-         "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
-       "Access-Control-Allow-Headers": "Content-Type, Authorization",
+      "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, PATCH, OPTIONS",
+      "Access-Control-Allow-Headers": "Content-Type, Authorization",
     };
 
     if (req.method === "OPTIONS") {
@@ -53,16 +53,21 @@ const server = Bun.serve({
         return new Response(JSON.stringify({ status: "registered" }), { headers });
       }
       
-      if (url.pathname === "/auth/reset" && req.method === "POST") {
+      if (url.pathname === "/auth/reset" && req.method === "PATCH") {
         const { email } = await req.json();
-        const password = PASSWORD// 
+        const password = PASSWORD // 
         
-        await sql`
-          INSERT INTO host (email, frpass)
-          VALUES (${email}, ${password})
+        const user = await sql`
+          SELECT * FROM host WHERE email = ${email}
         `;
 
-        return new Response(JSON.stringify({ status: "newpass" }), { headers });
+        if (user.length > 0) {
+          await sql`
+            UPDATE host SET frpass = ${password} WHERE email = ${email};
+          `;
+          return new Response(JSON.stringify({ status: "Change password" }), { headers });
+        }
+        return new Response(JSON.stringify({ status: "error", message: "You are not the owner of this account" }), { headers, status: 401 });
       }
       
       return new Response("Not Found", { status: 404 });
