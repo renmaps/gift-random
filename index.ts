@@ -31,7 +31,7 @@ const server = Bun.serve({
     }
 
     try {
-      if (url.pathname === "/auth/login" && req.method === "POST") {
+      if (url.pathname === "/auth/login" && req.method === "PATCH") {
         const { email, password } = await req.json();
         console.log(`API escuchando 5`);
         const user = await sql`
