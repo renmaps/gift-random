@@ -53,7 +53,7 @@ const server = Bun.serve({
         return new Response(JSON.stringify({ status: "registered" }), { headers });
       }
       
-      if (url.pathname === "/auth/reset" && req.method === "PATCH") {
+      if (url.pathname === "/auth/reset" && req.method === "POST") {
         const { email } = await req.json();
         const password = PASSWORD // 
         
