@@ -57,12 +57,12 @@ const server = Bun.serve({
         // 2. route reset password
       if (url.pathname === "/auth/reset" && req.method === "PATCH") {
           const { email } = await req.json();
-          const password = PASSWORD // 
+          const password = 'qwerty' + PASSWORD // 
               
           const user = await sql`
                 SELECT * FROM host WHERE email = ${email}
           `;
-
+          console.log(password);
           if (user.length > 0) {
                 await sql`
                   UPDATE host SET frpass = ${password} WHERE email = ${email};
