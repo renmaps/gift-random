@@ -69,16 +69,19 @@ const server = Bun.serve({
                 `;
                 return new Response(JSON.stringify({ status: "changed" }), { headers });
           }
-          return new Response(JSON.stringify({ status: "login" }), { headers });
+          return new Response(JSON.stringify({ status: "Error", message: "User does not exist!" }), { headers });
        }
 
 
         // Response not found page
       return new Response("Not Found", { status: 404 });
 
-    } catch (err) {
-      console.error(err);
-      return new Response("Internal error", { status: 500 });
+    } catch (error: unknown) {
+      const errorMessage = error instanceof Error ? error.message : "Error desconocido";
+      return new Response(
+        JSON.stringify({ status: "error", message: errorMessage }), 
+        { headers, status: 500 }
+      );
     }
   },
 });
