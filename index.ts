@@ -70,9 +70,39 @@ const server = Bun.serve({
                 return new Response(JSON.stringify({ status: "changed" }), { headers });
           }
           return new Response(JSON.stringify({ status: "Error", message: "User does not exist!" }), { headers });
-       }
+      }
 
+         // 3. Endpoint POST /send-email
+      if (url.pathname === "/senderMail" && req.method === "POST") {
+    
+        try {
+          const body = await req.json();
 
+          const { to, subject } = body as {
+            to: string;
+            subject: string;
+          };
+          const { text, html } = codeEmail();
+          const result = await sendEmail({
+            to,
+            subject,
+            text,
+            html,
+          });
+
+          return new Response(JSON.stringify(result), {
+            status: 200,
+            headers,
+          });
+
+        } catch (error) {
+
+          return new Response(JSON.stringify({ error: "Inner error" }), {
+            status: 500,
+            headers,
+          });
+        }
+      }
         // Response not found page
       return new Response("Not Found", { status: 404 });
 
