@@ -43,6 +43,18 @@ CREATE TABLE IF NOT EXISTS winners (
   email VARCHAR(255) UNIQUE NOT NULL,
   created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
+
+CREATE TABLE IF NOT EXISTS resettoken (
+  id SERIAL PRIMARY KEY DEFAULT gen_random_uuid(),
+  host_id INTEGER NOT NULL REFERENCES host(id) ON DELETE CASCADE,
+  code VARCHAR(10) NOT NULL,
+  attempts INTEGER DEFAULT 0,
+  expires_at TIMESTAMP WITH TIME ZONE NOT NULL,
+  used BOOLEAN DEFAULT FALSE,
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
 CREATE INDEX IF NOT EXISTS idx_prizev_host_id ON prizev(host_id);
 CREATE INDEX IF NOT EXISTS idx_candidates_prizev_id ON candidates(prizev_id);
 CREATE INDEX IF NOT EXISTS idx_winners_candidates_id ON winners(candidates_id);
+CREATE INDEX IF NOT EXISTS idx_reset_host_id ON resettoken(host_id);
