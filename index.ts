@@ -1,7 +1,8 @@
 import { sql } from "bun";
 import { ensureDatabaseReady } from "./src/db/init";
+import resetCode from "./src/utils/resetPass";
 
-const PASSWORD = process.env.RESET_PASSWORD 
+//const PASSWORD = process.env.RESET_PASSWORD 
 
 try {
   console.log("Start DB...");
@@ -57,7 +58,7 @@ const server = Bun.serve({
         // 2. route reset password
       if (url.pathname === "/auth/reset" && req.method === "PATCH") {
           const { email } = await req.json();
-          const password = PASSWORD // 
+          const password = resetCode(); //PASSWORD
               
           const user = await sql`
                 SELECT * FROM host WHERE email = ${email}
