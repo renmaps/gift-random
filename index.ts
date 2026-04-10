@@ -1,5 +1,7 @@
 import { sql } from "bun";
 import { ensureDatabaseReady } from "./src/db/init";
+import { sendEmail } from "./src/mailer/mail";
+import codeEmail from "./src/utils/textHtml";
 import resetCode from "./src/utils/resetPass";
 
 //const PASSWORD = process.env.RESET_PASSWORD 
